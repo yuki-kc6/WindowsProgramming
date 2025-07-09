@@ -4,7 +4,7 @@
 #include "framework.h"
 #include "WindowsPeog2.h"
 #include "Direct3D.h"
-#include "Quad.h"
+#include "Dice.h"
 #include "Camera.h"
 
 
@@ -88,12 +88,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     MSG msg = {};
 
-    Quad* q = new Quad();
-    hr = q->Initialize();
+    Dice* d = new Dice();
+    /*hr = d->Initialize();
     if (FAILED(hr))
     {
         return 0;
-    }
+    }*/
 
     ZeroMemory(&msg, sizeof(msg));
     //メッセージループ（何か起きるのを待つ）
@@ -130,7 +130,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
             XMMATRIX mat = XMMatrixRotationY(XMConvertToRadians(45));
 
-            q->Draw(mat);
+            d->Draw(mat);
 
             Direct3D::EndDraw();
 
@@ -139,8 +139,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     }
 
     //解放処理
-    q->Release();
-    SAFE_DELETE(q);
+    d->Release();
+    SAFE_DELETE(d);
 
 
     Direct3D::Release();

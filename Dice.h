@@ -3,10 +3,6 @@
 class Dice :
     public Quad
 {
-	Dice();
-	~Dice();
-	HRESULT Initialize();
-	void Draw(XMMATRIX& worldMatrix);
-	void Release();
+public:
+    void Initialize();
 };
-
