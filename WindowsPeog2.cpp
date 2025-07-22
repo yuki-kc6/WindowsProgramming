@@ -88,12 +88,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     MSG msg = {};
 
-    Dice* d = new Dice();
-    /*hr = d->Initialize();
+    Dice* dice = new Dice();
+    hr = dice->Initialize();
     if (FAILED(hr))
     {
         return 0;
-    }*/
+    }
 
     ZeroMemory(&msg, sizeof(msg));
     //メッセージループ（何か起きるのを待つ）
@@ -123,24 +123,27 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
             Camera::Update();
 
-            Direct3D::BeginDraw();
+            
 
             
             //描画処理
-
+            
+            Direct3D::BeginDraw();
             XMMATRIX mat = XMMatrixRotationY(XMConvertToRadians(45));
-
-            d->Draw(mat);
-
+            dice->Draw(mat);
             Direct3D::EndDraw();
+            
+            
+            
+            
 
         }
 
     }
 
     //解放処理
-    d->Release();
-    SAFE_DELETE(d);
+    dice->Release();
+    SAFE_DELETE(dice);
 
 
     Direct3D::Release();
