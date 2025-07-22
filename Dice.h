@@ -4,5 +4,9 @@ class Dice :
     public Quad
 {
 public:
-    void Initialize();
+    Dice();
+    ~Dice();
+    HRESULT Initialize() override ;
+    void Draw(XMMATRIX& worldMatrix) override;
+    void Release();
 };
