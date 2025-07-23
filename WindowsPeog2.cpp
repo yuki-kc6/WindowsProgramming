@@ -4,8 +4,9 @@
 #include "framework.h"
 #include "WindowsPeog2.h"
 #include "Direct3D.h"
-#include "Dice.h"
+//#include "Dice.h"
 #include "Camera.h"
+#include "Spirete.h"
 
 
 HWND hWnd = nullptr;
@@ -78,7 +79,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     
     
-    Camera::Initialize();
+    //Camera::Initialize();
     
 
 
@@ -88,8 +89,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     MSG msg = {};
 
-    Dice* dice = new Dice();
-    hr = dice->Initialize();
+    //Dice* dice = new Dice();
+    Spirete* sp = new Spirete();
+    hr = sp->Initialize();
     if (FAILED(hr))
     {
         return 0;
@@ -121,23 +123,37 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         {
             //ゲームの処理
 
-            Camera::Update();
+            //Camera::Update();
 
+            /*float gb = 45;
+            while (gb != 360) {
+                Direct3D::BeginDraw();
+                XMMATRIX mat = XMMatrixRotationY(XMConvertToRadians(gb));
+                dice->Draw(mat);
+                Direct3D::EndDraw();
+                gb += 0.05;
+                if (gb == 359)
+                    gb = 0;
+
+            }*/
             Direct3D::BeginDraw();
-
-            }
-            
-            
-            
-            
+            XMMATRIX mat = XMMatrixRotationY(XMConvertToRadians(180));
+            sp->Draw(mat);
+            Direct3D::EndDraw();
 
         }
+            
+            
+            
+            
 
-    }
+     }
+
+ 
 
     //解放処理
-    dice->Release();
-    SAFE_DELETE(dice);
+    sp->Release();
+    SAFE_DELETE(sp);
 
 
     Direct3D::Release();

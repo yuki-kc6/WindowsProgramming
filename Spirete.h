@@ -20,16 +20,15 @@ struct VERTEX
 {
 	XMVECTOR pos;
 	XMVECTOR uv;
-	XMVECTOR normal;
 };
 
 class Texture;//ëOï˚êÈåæ
 
-class Quad
+class Spirete
 {
 public:
-	Quad();
-	virtual ~Quad();
+	Spirete();
+	virtual ~Spirete();
 	virtual HRESULT Initialize();
 	virtual void Draw(XMMATRIX& worldMatrix);
 	void Release();
