@@ -123,20 +123,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
             Camera::Update();
 
-            
-
-            
-            //描画処理
-            
-            float gb = 45;
-            while (gb != 360) {
-                Direct3D::BeginDraw();
-                XMMATRIX mat = XMMatrixRotationY(XMConvertToRadians(gb));
-                dice->Draw(mat);
-                Direct3D::EndDraw();
-                gb += 0.1;
-                if (gb == 359)
-                    gb = 0;
+            Direct3D::BeginDraw();
 
             }
             
