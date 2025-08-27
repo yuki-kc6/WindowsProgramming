@@ -10,16 +10,14 @@ using namespace DirectX;
 
 struct  CONSTANT_BUFFER
 {
-	XMMATRIX matWVP; //world*view*projection‚Ìs—ñ
-	XMMATRIX matNormal;
 	XMMATRIX matWorld;
 };
 
 //’¸“_î•ñ
 struct VERTEX
 {
-	XMVECTOR pos;
-	XMVECTOR uv;
+	XMFLOAT4 pos;
+	XMFLOAT2 uv;
 };
 
 class Texture;//‘O•ûéŒ¾

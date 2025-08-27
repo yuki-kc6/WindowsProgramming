@@ -4,10 +4,11 @@
 #include "framework.h"
 #include "WindowsPeog2.h"
 #include "Direct3D.h"
+//#include "Quad.h"
 //#include "Dice.h"
 #include "Camera.h"
 #include "Spirete.h"
-
+#include "Transform.h"
 
 HWND hWnd = nullptr;
 
@@ -16,7 +17,7 @@ HWND hWnd = nullptr;
 //グローバル変数の宣言
 const wchar_t* WIN_CLASS_NAME = L"SAMPLE GAME WINDOW";
 const int WINDOW_WIDTH = 800;
-const int WINDOW_HEIGHT = 800;
+const int WINDOW_HEIGHT = 600;
 
 // グローバル変数:
 HINSTANCE hInst;                                // 現在のインターフェイス
@@ -68,6 +69,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         return FALSE;
     }
 
+    //Direct3D初期化
     HRESULT hr;
     hr = Direct3D::Initialize(WINDOW_WIDTH, WINDOW_HEIGHT, hWnd);
     if (FAILED(hr))
@@ -75,23 +77,18 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         return 0;
     }
 
+    Camera::Initialize();
+
+
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_WINDOWSPEOG2));
-
-    
-    
-    //Camera::Initialize();
-    
-
-
-
 
     //メッセージループとは、メッセージキューに格納されたメッセージを取り出し、ウインドウプロシージャに渡す処理である。
 
     MSG msg = {};
 
     //Dice* dice = new Dice();
-    Spirete* sp = new Spirete();
-    hr = sp->Initialize();
+    Spirete* sprite= new Spirete();
+    hr = sprite->Initialize();
     if (FAILED(hr))
     {
         return 0;
@@ -105,8 +102,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
         //メッセージあり
 
-        if (PeekMessage(&msg, NULL, 0U, 0U, PM_REMOVE))
-
+        while (PeekMessage(&msg, NULL, 0U, 0U, PM_REMOVE))
         {
 
             TranslateMessage(&msg);
@@ -118,42 +114,39 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 
         //メッセージなし
-
-        else
-        {
             //ゲームの処理
+            Camera::Update();
 
-            //Camera::Update();
 
-            /*float gb = 45;
-            while (gb != 360) {
-                Direct3D::BeginDraw();
-                XMMATRIX mat = XMMatrixRotationY(XMConvertToRadians(gb));
-                dice->Draw(mat);
-                Direct3D::EndDraw();
-                gb += 0.05;
-                if (gb == 359)
-                    gb = 0;
-
-            }*/
             Direct3D::BeginDraw();
-            XMMATRIX mat = XMMatrixRotationY(XMConvertToRadians(180));
-            sp->Draw(mat);
-            Direct3D::EndDraw();
 
-        }
+            //描画処理
+            //static float angle = 0.0f;
+            //XMMATRIX mat= XMMatrixRotationY(XMConvertToRadians(angle));
+            //angle += 0.05f;
             
+        
+            //Direct3D::BeginDraw();
             
-            
-            
+
+            Transform trans;
+           trans.position_.x = 5;
+           trans.rotate_.z = 4;
+           trans.Calculation();
+
+           XMMATRIX mat = trans.GetWorldMatrix();
+
+           sprite->Draw(mat);
+
+            Direct3D::EndDraw();
 
      }
 
  
 
     //解放処理
-    sp->Release();
-    SAFE_DELETE(sp);
+    sprite->Release();
+    //SAFE_DELETE(sp);
 
 
     Direct3D::Release();

@@ -1,10 +1,16 @@
 #include "Spirete.h"
+
+
 #include "Camera.h"
 #include "Texture.h"
 
 
 
-Spirete::Spirete() :pVertexBuffer_(nullptr), pIndexBuffer_(nullptr), pConstantBuffer_(nullptr), pTexture_(nullptr)
+Spirete::Spirete() 
+	:pVertexBuffer_(nullptr), 
+	pIndexBuffer_(nullptr), 
+	pConstantBuffer_(nullptr), 
+	pTexture_(nullptr)
 {
 
 }
@@ -19,10 +25,10 @@ HRESULT Spirete::Initialize()
 	//縦横２の乗数
 	VERTEX vertices[] =
 	{
-		{ XMVectorSet(-1.0f,  1.0f, 0.0f, 0.0f),XMVectorSet(0.0f, 0.0f, 0.0f, 0.0f) },   // 四角形の頂点（左上）
-		{ XMVectorSet(1.0f,  1.0f, 0.0f, 0.0f),	XMVectorSet(1.0f, 0.0f, 0.0f, 0.0f) },   // 四角形の頂点（右上）
-		{ XMVectorSet(1.0f, -1.0f, 0.0f, 0.0f),	XMVectorSet(1.0f, 1.0f, 0.0f, 0.0f) },   // 四角形の頂点（右下）
-		{ XMVectorSet(-1.0f, -1.0f, 0.0f, 0.0f),XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f) },   // 四角形の頂点（左下）
+		{ {-1.0f,  1.0f, 0.0f, 0.0f},{0.0f, 0.0f} },   // 四角形の頂点（左上）
+		{ { 1.0f,  1.0f, 0.0f, 0.0f},{1.0f, 0.0f} },   // 四角形の頂点（右上）+
+		{ { 1.0f, -1.0f, 0.0f, 0.0f},{1.0f, 1.0f} },   // 四角形の頂点（右下）
+		{ {-1.0f, -1.0f, 0.0f, 0.0f},{0.0f, 1.0f} },   // 四角形の頂点（左下）
 	};
 
 
@@ -90,21 +96,15 @@ HRESULT Spirete::Initialize()
 void Spirete::Draw(XMMATRIX& worldMatrix)
 {
 	//コンスタントバッファに渡す情報
-	Direct3D::SetShader(SHADER_2D);
+	Direct3D::SetShader(SHADER_TYPE::SHADER_2D);
 
-	D3D11_MAPPED_SUBRESOURCE pdata;
 	CONSTANT_BUFFER cb;
 
-	cb.matWVP = XMMatrixTranspose(worldMatrix * Camera::GetViewMatrix() * Camera::GetProjectionMatrix());
+	cb.matWorld = XMMatrixTranspose(worldMatrix);
+
+	D3D11_MAPPED_SUBRESOURCE pdata;
 	Direct3D::pContext->Map(pConstantBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &pdata);	// GPUからのデータアクセスを止める
 	memcpy_s(pdata.pData, pdata.RowPitch, (void*)(&cb), sizeof(cb));	// データを値を送る
-
-	ID3D11SamplerState* pSampler = pTexture_->GetSampler();
-	Direct3D::pContext->PSSetSamplers(0, 1, &pSampler);
-
-	ID3D11ShaderResourceView* pSRV = pTexture_->GetSRV();
-	Direct3D::pContext->PSSetShaderResources(0, 1, &pSRV);
-
 	Direct3D::pContext->Unmap(pConstantBuffer_, 0);	//再開
 
 	//頂点バッファ
@@ -113,13 +113,19 @@ void Spirete::Draw(XMMATRIX& worldMatrix)
 	Direct3D::pContext->IASetVertexBuffers(0, 1, &pVertexBuffer_, &stride, &offset);
 
 	// インデックスバッファーをセット
-	stride = sizeof(VERTEX);
+	stride = sizeof(int);
 	offset = 0;
 	Direct3D::pContext->IASetIndexBuffer(pIndexBuffer_, DXGI_FORMAT_R32_UINT, 0);
 
 	//コンスタントバッファ
 	Direct3D::pContext->VSSetConstantBuffers(0, 1, &pConstantBuffer_);	//頂点シェーダー用	
 	Direct3D::pContext->PSSetConstantBuffers(0, 1, &pConstantBuffer_);	//ピクセルシェーダー用
+
+	ID3D11SamplerState* pSampler = pTexture_->GetSampler();
+	Direct3D::pContext->PSSetSamplers(0, 1, &pSampler);
+
+	ID3D11ShaderResourceView* pSRV = pTexture_->GetSRV();
+	Direct3D::pContext->PSSetShaderResources(0, 1, &pSRV);
 
 	Direct3D::pContext->DrawIndexed(6, 0, 0);
 

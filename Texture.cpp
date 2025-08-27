@@ -27,7 +27,7 @@ HRESULT Texture::Load(std::string fileName)
 
 	HRESULT hr;
 
-	//実際に読んでゆくぅ　　　　　 
+	//実際に読む　　　　 
 	std::wstring wfilename(fileName.begin(), fileName.end());
 	hr = LoadFromWICFile(wfilename.c_str(), WIC_FLAGS::WIC_FLAGS_NONE,
 							&metadata, image);
@@ -41,6 +41,7 @@ HRESULT Texture::Load(std::string fileName)
 	{
 		return S_FALSE;
 	}
+
 	D3D11_SAMPLER_DESC SamDesc;
 	ZeroMemory(&SamDesc, sizeof(D3D11_SAMPLER_DESC));
 	SamDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
