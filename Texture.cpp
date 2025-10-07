@@ -56,7 +56,7 @@ HRESULT Texture::Load(std::string fileName)
 	srv.Texture2D.MipLevels = 1;
 
 	hr = CreateShaderResourceView(Direct3D::pDevice,
-image.GetImages(), image.GetImageCount(), metadata, &pSRV_);
+		image.GetImages(), image.GetImageCount(), metadata, &pSRV_);
 
 	return S_OK;
 

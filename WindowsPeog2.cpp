@@ -7,9 +7,16 @@
 //#include "Quad.h"
 //#include "Dice.h"
 #include "Camera.h"
-#include "Spirete.h"
+//#include "Spirete.h"
 #include "Transform.h"
+#include "Fbx.h"
+#include "Input.h"
 
+//頭にHがつくと何らかのハンドル
+//実行してるアプリの数＝ウィンドウの数ではない。
+// ウィンドウをつくるごとに番号が割り振られる
+// ウィンドウ一つに対してウィンドウハンドル一つ
+//ウィンドウハンドル
 HWND hWnd = nullptr;
 
 #define MAX_LOADSTRING 100
@@ -77,28 +84,31 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         return 0;
     }
 
-    Camera::Initialize();
+    Input::Initialize(hWnd);
 
+    Camera::Initialize();
 
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_WINDOWSPEOG2));
 
     //メッセージループとは、メッセージキューに格納されたメッセージを取り出し、ウインドウプロシージャに渡す処理である。
 
-    MSG msg = {};
+    
 
     //Dice* dice = new Dice();
-    Spirete* sprite= new Spirete();
-    hr = sprite->Initialize();
+    //Spirete* sprite= new Spirete();
+    Fbx* fbx = new Fbx();
+    fbx->Load("oden.fbx");
     if (FAILED(hr))
     {
         return 0;
     }
 
+    MSG msg;
     ZeroMemory(&msg, sizeof(msg));
     //メッセージループ（何か起きるのを待つ）
     while (msg.message != WM_QUIT)
-
     {
+      
 
         //メッセージあり
 
@@ -111,47 +121,56 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
         }
 
-
-
+     
         //メッセージなし
             //ゲームの処理
-            Camera::Update();
+        Camera::Update();//カメラの更新
+
+        Input::Update();//入力の更新
 
 
-            Direct3D::BeginDraw();
-
-            //描画処理
-            //static float angle = 0.0f;
-            //XMMATRIX mat= XMMatrixRotationY(XMConvertToRadians(angle));
-            //angle += 0.05f;
+        if (Input::IsMouseButton(0))
+        {
             
+                PostQuitMessage(0);
+            
+        }
         
-            //Direct3D::BeginDraw();
-            
 
-            Transform trans;
-           trans.position_.x = 5;
-           trans.rotate_.z = 4;
-           trans.Calculation();
 
-           XMMATRIX mat = trans.GetWorldMatrix();
 
-           sprite->Draw(mat);
+        Direct3D::BeginDraw();
 
-            Direct3D::EndDraw();
+        //描画処理
+        //static float angle = 0.0f;
+        //XMMATRIX mat= XMMatrixRotationY(XMConvertToRadians(angle));
+        //angle += 0.05f;
 
-     }
 
+        //Direct3D::BeginDraw();
+
+
+        static Transform trans;
+
+        trans.position_.x = 1.0f;
+        trans.rotate_.y += 0.1f;
+        trans.Calculation();
+        //trans.GetWorldMatrix();
+        fbx->Draw(trans);
+        //sprite->Draw(mat);
+
+       
+        Direct3D::EndDraw();
+
+    }
  
 
     //解放処理
-    sprite->Release();
+    //fbx->Release();
     //SAFE_DELETE(sp);
-
-
+    SAFE_DELETE(fbx);
+    Input::Release();
     Direct3D::Release();
-    
-
 
     return (int)msg.wParam;
 }
@@ -240,12 +259,11 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    int winW = winRect.right - winRect.left;     //ウィンドウ幅
    int winH = winRect.bottom - winRect.top;     //ウィンドウ高さ
 
-
+   //ウィンドウがつくられる
+   //戻り値としてハンドルに番号が入る
+   //ウィンドウの操作や削除はこの番号で行われる
     hWnd = CreateWindow(WIN_CLASS_NAME, WIN_CLASS_NAME, WS_OVERLAPPEDWINDOW,
       CW_USEDEFAULT, 0, winW, winH, nullptr, nullptr, hInstance, nullptr);
-
-
-
 
    if (!hWnd)
    {
@@ -271,6 +289,9 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //コールバックとは
 //OSに呼んでもらう関数
 //ウィンドウプロシージャとは、受け取ったメッセージを処理する関数である。
+//メッセージ・・・Windowsからウィンドウに送られる通知
+//UINT・・・何が起こったか
+//wParam、lParam・・・通知の種類で追加で送られてくるもの内容
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
@@ -286,6 +307,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 break;
             case IDM_EXIT:
                 DestroyWindow(hWnd);
+                break;
+            case WM_MOUSEMOVE:
                 break;
             default:
                 return DefWindowProc(hWnd, message, wParam, lParam);
@@ -303,6 +326,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_DESTROY:
         PostQuitMessage(0);
         break;
+    case WM_MOUSEMOVE:
+    {
+        int x = LOWORD(lParam);
+        int y = HIWORD(lParam);
+        Input::SetMousePosition(x, y);
+        OutputDebugStringA((std::to_string(x) + "," + std::to_string(y) + "\n").c_str());
+    }
     default:
         return DefWindowProc(hWnd, message, wParam, lParam);
     }

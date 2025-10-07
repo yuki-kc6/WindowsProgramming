@@ -166,6 +166,8 @@ void Dice::Draw(XMMATRIX& worldMatrix)
 
 	Direct3D::pContext->DrawIndexed(36, 0, 0);
 
+
+
 }
 
 void Dice::Release()
