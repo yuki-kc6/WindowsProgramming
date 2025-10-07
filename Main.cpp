@@ -2,15 +2,15 @@
 //
 
 #include "framework.h"
-#include "WindowsPeog2.h"
-#include "Direct3D.h"
+#include "Main.h"
+#include "Engine/Direct3D.h"
 //#include "Quad.h"
 //#include "Dice.h"
-#include "Camera.h"
+#include "Engine/Camera.h"
 //#include "Spirete.h"
-#include "Transform.h"
-#include "Fbx.h"
-#include "Input.h"
+#include "Engine/Transform.h"
+#include "Engine/Fbx.h"
+#include "Engine/Input.h"
 
 //頭にHがつくと何らかのハンドル
 //実行してるアプリの数＝ウィンドウの数ではない。
