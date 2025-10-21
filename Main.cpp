@@ -2,15 +2,20 @@
 //
 
 #include "framework.h"
+#include <cstdlib>
 #include "Main.h"
 #include "Engine/Direct3D.h"
-//#include "Quad.h"
-//#include "Dice.h"
 #include "Engine/Camera.h"
-//#include "Spirete.h"
 #include "Engine/Transform.h"
-#include "Engine/Fbx.h"
 #include "Engine/Input.h"
+#include"Engine/RootJob.h"
+#include"Engine/Model.h"
+
+
+#pragma comment(lib,"winmm.lib") //timeGetTimeを使うために必要
+
+
+
 
 //頭にHがつくと何らかのハンドル
 //実行してるアプリの数＝ウィンドウの数ではない。
@@ -25,6 +30,8 @@ HWND hWnd = nullptr;
 const wchar_t* WIN_CLASS_NAME = L"SAMPLE GAME WINDOW";
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
+
+RootJob* pRootJob = nullptr;
 
 // グローバル変数:
 HINSTANCE hInst;                                // 現在のインターフェイス
@@ -92,17 +99,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     //メッセージループとは、メッセージキューに格納されたメッセージを取り出し、ウインドウプロシージャに渡す処理である。
 
+    pRootJob = new RootJob(nullptr);
+    pRootJob->Initialize();
     
-
-    //Dice* dice = new Dice();
-    //Spirete* sprite= new Spirete();
-    Fbx* fbx = new Fbx();
-    fbx->Load("oden.fbx");
-    if (FAILED(hr))
-    {
-        return 0;
-    }
-
+    
     MSG msg;
     ZeroMemory(&msg, sizeof(msg));
     //メッセージループ（何か起きるのを待つ）
@@ -121,12 +121,43 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
         }
 
+        
+ 
      
         //メッセージなし
+        
+        static DWORD countFps = 0;//FPS計算用カウンタ
+
+        static DWORD startTime = timeGetTime();//初回の時間を保存
+        DWORD nowTime = timeGetTime();//現在の時間を取得
+        static DWORD lastUpdateTime = nowTime;
+
+        if (nowTime - startTime >= 1000)
+        {
+            std::string str = "FPS:" + std::to_string(nowTime - startTime)
+                + "," + std::to_string(countFps);
+            SetWindowTextA(hWnd, str.c_str());
+
+			countFps = 0;
+            startTime = nowTime;
+        }
+
+        if (nowTime - lastUpdateTime <= 1000.0f / 60)
+        {
+            continue;
+        }
+        lastUpdateTime = nowTime;
+        
+		countFps++;
+		//startTime = nowTime;   
+
+
+        timeEndPeriod(1);
             //ゲームの処理
         Camera::Update();//カメラの更新
-
         Input::Update();//入力の更新
+
+        pRootJob->UpdateSub();
 
 
         if (Input::IsMouseButton(0))
@@ -135,40 +166,21 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                 PostQuitMessage(0);
             
         }
-        
-
-
-
+       
         Direct3D::BeginDraw();
 
-        //描画処理
-        //static float angle = 0.0f;
-        //XMMATRIX mat= XMMatrixRotationY(XMConvertToRadians(angle));
-        //angle += 0.05f;
-
-
-        //Direct3D::BeginDraw();
-
-
-        static Transform trans;
-
-        trans.position_.x = 1.0f;
-        trans.rotate_.y += 0.1f;
-        trans.Calculation();
-        //trans.GetWorldMatrix();
-        fbx->Draw(trans);
-        //sprite->Draw(mat);
-
+        //pRootJobから、すべてのオブジェクトの描画をする
+        pRootJob->DrawSub();
        
         Direct3D::EndDraw();
 
     }
  
+    
 
     //解放処理
-    //fbx->Release();
-    //SAFE_DELETE(sp);
-    SAFE_DELETE(fbx);
+    Model::Release();
+    pRootJob->ReleaseSub();
     Input::Release();
     Direct3D::Release();
 
