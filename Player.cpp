@@ -33,19 +33,23 @@ void Player::Initialize()
 
 void Player::Update()
 {
-	transform_.rotate_.y += 1.0f;
-	if (transform_.rotate_.y > 720.0f)
+	static float x = 0.0;
+	float tx = tan(x) * 3.0f;
+	x += 0.02f;
+	transform_.position_.x = tx;
+	transform_.rotate_.y += 2.0f;
+	/*if (transform_.rotate_.y > 720.0f)
 	{
 		Killme();
-	}
+	}*/
 }
 
 void Player::Draw()
 {
-	if (pFbx_)
+	/*if (pFbx_)
 	{
 		pFbx_->Draw(transform_);
-	}
+	}*/
 	Model::SetTransforom(hModel, transform_);
 	Model::Draw(hModel);
 }
@@ -53,10 +57,10 @@ void Player::Draw()
 void Player::Release()
 {
 	Model::Release();
-	if (pFbx_)
+	/*if (pFbx_)
 	{
 		pFbx_->Release();
 		delete pFbx_;
 		pFbx_ = nullptr;
-	}
+	}*/
 }
