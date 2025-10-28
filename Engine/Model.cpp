@@ -49,6 +49,7 @@ void Model::Release()
 	bool isReffered=false;//参照されているかどうか
 	for (int i = 0; i < modelList.size();i++)
 	{
+		isReffered == false;
 		for (int j = i + 1; j < modelList.size(); j++)
 		{
 			if (modelList[i]->pFbx_ == modelList[j]->pFbx_)
@@ -61,6 +62,7 @@ void Model::Release()
 		{
 			SAFE_DELETE(modelList[i]->pFbx_);
 		}
+		
 	}
 	modelList.clear();//配列を空にする（念のため）
 

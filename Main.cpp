@@ -108,8 +108,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     //メッセージループ（何か起きるのを待つ）
     while (msg.message != WM_QUIT)
     {
-      
-
         //メッセージあり
 
         while (PeekMessage(&msg, NULL, 0U, 0U, PM_REMOVE))
@@ -159,11 +157,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
         pRootJob->UpdateSub();
 
-
         if (Input::IsMouseButton(0))
         {
             
-                PostQuitMessage(0);
+                //PostQuitMessage(0);
             
         }
        
