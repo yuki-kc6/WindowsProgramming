@@ -38,10 +38,10 @@ void Player::Update()
 	x += 0.02f;
 	transform_.position_.x = tx;
 	transform_.rotate_.y += 2.0f;
-	/*if (transform_.rotate_.y > 720.0f)
+	if (transform_.rotate_.y > 720.0f)
 	{
 		Killme();
-	}*/
+	}
 }
 
 void Player::Draw()

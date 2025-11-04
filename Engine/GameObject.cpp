@@ -38,6 +38,9 @@ void GameObject::UpdateSub()
 {
 	transform_.Calculation();
 	this->Update();
+
+
+	RoundRobin(GetRootJob());
 	for (auto child : childList_)
 	{
 		child->UpdateSub();

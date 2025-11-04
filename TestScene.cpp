@@ -18,11 +18,9 @@ void TestScene::Initialize()
 
 void TestScene::Update()  
 {  
-
-	SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
    if (Input::IsKeyDown(DIK_SPACE))  
    {  
-	   
+	   SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
 	   if (pSceneManager != nullptr)
 	   pSceneManager->ChangeScene(SCENE_ID_PLAY);
    }

@@ -1,5 +1,4 @@
 #pragma once
-
 #include <list>
 #include <string>
 #include "Transform.h"
@@ -7,6 +6,8 @@
 
 using std::string;
 using std::list;
+
+class SpehreCollider;
 
 
 class GameObject
@@ -32,6 +33,10 @@ public:
 	GameObject* FindChildObject(const string& name);
 	GameObject* FindObject(const string& name);
 
+	void AddColider(SpehreCollider* pCollider);
+	void Collision(GameObject* pTarget);
+	void RoundRobin(GameObject* pTarget);
+
 	template<class T>
 	GameObject* Instantiate(GameObject* parent)
 	{
@@ -44,9 +49,10 @@ public:
 
 protected:
 	list<GameObject*> childList_;
-	Transform		transform_;
-	GameObject* pParent_;
-	string	objectName_;
+	Transform		  transform_;
+	GameObject*		  pParent_;
+	string			  objectName_;
+	SpehreCollider*   pCollider_;
 private:
 	bool isDead_;
 
