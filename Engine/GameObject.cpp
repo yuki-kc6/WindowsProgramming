@@ -1,6 +1,6 @@
-#include "GameObject.h"
+ï»¿#include "GameObject.h"
 #include "SphereCollider.h"
-#include "Windows.h"
+#include <Windows.h>
 GameObject::GameObject()
 	:pParent_(nullptr)
 {
@@ -22,8 +22,8 @@ GameObject::~GameObject()
 
 void GameObject::DrawSub()
 {
-	//0.©•ª‚ğ•`‰æ
-	//1.qƒIƒuƒWƒFƒNƒg‚ğ•`‰æ@childList‚ÌŠe—v‘f‚É‘Î‚µ‚ÄDraw‚ğŒÄ‚Ô
+	//0.è‡ªåˆ†ã‚’æç”»
+	//1.å­ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æç”»ã€€childListã®å„è¦ç´ ã«å¯¾ã—ã¦Drawã‚’å‘¼ã¶
 
 	this->Draw();
 
@@ -64,7 +64,7 @@ void GameObject::UpdateSub()
 
 void GameObject::ReleaseSub()
 {
-	this->Release();//©•ª‚ğ‰ğ•ú
+	this->Release();//è‡ªåˆ†ã‚’è§£æ”¾
 	for (auto child : childList_)
 	{
 		child->ReleaseSub();
@@ -93,7 +93,7 @@ GameObject* GameObject::GetRootJob()
 {
 	if (pParent_ == nullptr)
 	{
-		return this;//rootjob‚¾‚æ
+		return this;//rootjobã ã‚ˆ
 	}
 	else
 	{
@@ -105,7 +105,7 @@ GameObject* GameObject::FindChildObject(const string& name)
 {
 	if (this->objectName_ == name)
 	{
-		return this;//©•ª‚ª’T‚³‚ê‚Ä‚¢‚½ƒIƒuƒWƒFƒNƒg
+		return this;//è‡ªåˆ†ãŒæ¢ã•ã‚Œã¦ã„ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 	}
 	else
 	{
@@ -114,10 +114,10 @@ GameObject* GameObject::FindChildObject(const string& name)
 			GameObject* result = child->FindChildObject(name);
 			if (result != nullptr)
 			{
-				return result;//Œ©‚Â‚©‚Á‚½
+				return result;//è¦‹ã¤ã‹ã£ãŸ
 			}
 		}
-		return nullptr;//Œ©‚Â‚©‚ç‚È‚©‚Á‚½
+		return nullptr;//è¦‹ã¤ã‹ã‚‰ãªã‹ã£ãŸ
 	}
 }
 
@@ -128,42 +128,42 @@ GameObject* GameObject::FindObject(const string& name)
 	return result;
 }
 
-void GameObject::AddColider(SphereCollider* pCollider)
+void GameObject::AddCollider(SphereCollider* pCollider)
 {
 	pCollider_ = pCollider;
 }
 
 void GameObject::Collision(GameObject* pTarget)
 {
-	//this->pCollider_‚ÆpTarget->pCollider_‚Í‚Ô‚Â‚©‚Á‚Ä‚éH
-	// è‡’l‚¨Œİ‚¢‚Ì”¼Œa{”¼Œa
+	//this->pCollider_ã¨pTarget->pCollider_ã¯ã¶ã¤ã‹ã£ã¦ã‚‹ï¼Ÿ
+	// é–¾å€¤ï¼ãŠäº’ã„ã®åŠå¾„ï¼‹åŠå¾„
 	float thisR = this->pCollider_->GetRadius();
 	float tgtR = pTarget->pCollider_->GetRadius();
 	float thre = (thisR + tgtR)* (thisR + tgtR);
-	//2‚Â‚ÌƒRƒ‰ƒCƒ_[‚Ì‹——£ŒvZ‚ğ‚·‚é
+	//2ã¤ã®ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã®è·é›¢è¨ˆç®—ã‚’ã™ã‚‹
 	XMFLOAT3 thisP = this->transform_.position_;
 	XMFLOAT3 tgtP = pTarget->transform_.position_;
 	float dist = (thisP.x - tgtP.x) * (thisP.x - tgtP.x) +
-				 (thisP.y - tgtP.y) * (thisP.y - tgtP.y) +
-				 (thisP.z - tgtP.z) * (thisP.z - tgtP.z);
-		
-	//ƒRƒ‰ƒCƒ_[“¯m‚ªŒğ·‚µ‚Ä‚¢‚½‚ç
+		         (thisP.y - tgtP.y) * (thisP.y - tgtP.y) +
+		         (thisP.z - tgtP.z) * (thisP.z - tgtP.z);
+	//ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼åŒå£«ãŒäº¤å·®ã—ã¦ã„ãŸã‚‰
 	if (dist <= thre) {
-		//ˆ—‚ğ‚·‚é
-		MessageBoxA(0, "‚Ú‚ñ", "Collider", MB_OK);
+		
+		//å‡¦ç†ã‚’ã™ã‚‹
+		MessageBoxA(0, "ã¼ã‚“", "Collider", MB_OK);
 	}
 	
 }
 
 void GameObject::RoundRobin(GameObject* pTarget)
 {
-	//©•ª‚ÉƒRƒ‰ƒCƒ_[‚ª‚È‚©‚Á‚½‚çreturn
+	//è‡ªåˆ†ã«ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ãŒãªã‹ã£ãŸã‚‰return
 	if (pCollider_ == nullptr)
 		return;
-	//©•ª‚Æƒ^[ƒQƒbƒg©‘Ì‚ÌƒRƒ‰ƒCƒ_[‚ª“–‚½‚è”»’è
+	//è‡ªåˆ†ã¨ã‚¿ãƒ¼ã‚²ãƒƒãƒˆè‡ªä½“ã®ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ãŒå½“ãŸã‚Šåˆ¤å®š
 	if(pTarget->pCollider_!=nullptr)
 	Collision(pTarget);
-	//Ä‹A“I‚È“z‚ÅAƒ^[ƒQƒbƒg‚ÌqƒIƒuƒWƒFƒNƒg‚É“–‚½‚è”»’è‚µ‚Ä‚¢‚­
+	//å†å¸°çš„ãªå¥´ã§ã€ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®å­ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«å½“ãŸã‚Šåˆ¤å®šã—ã¦ã„ã
 	for (auto itr : pTarget->childList_)
 		RoundRobin(itr);
 		

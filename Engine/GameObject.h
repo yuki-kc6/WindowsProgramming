@@ -33,7 +33,7 @@ public:
 	GameObject* FindChildObject(const string& name);
 	GameObject* FindObject(const string& name);
 
-	void AddColider(SphereCollider* pCollider);
+	void AddCollider(SphereCollider* pCollider);
 	void Collision(GameObject* pTarget);
 	void RoundRobin(GameObject* pTarget);
 

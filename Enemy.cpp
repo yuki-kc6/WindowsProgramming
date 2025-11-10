@@ -1,8 +1,9 @@
 #include "Enemy.h"
-#include "Engine/Model.h"
+#include "Engine/SphereCollider.h"
+
 
 Enemy::Enemy(GameObject* parent)
-	:GameObject(parent, "Enemy"), hModel(-1)
+	:GameObject(parent, "Enemy"), pFbx(nullptr)
 {
 }
 
@@ -10,34 +11,33 @@ Enemy::~Enemy()
 {
 }
 
-void Enemy::Initialize()
+void
+Enemy::Initialize()
 {
-	hModel = Model::Load("geppei.fbx");
-	assert(hModel >= 0);
-	transform_.scale_.x = 0.7f;
-	transform_.scale_.y = 0.7f;
-	transform_.scale_.z = 0.7f;
+	pFbx = new Fbx;
+	pFbx->Load("geppei.fbx");
+	transform_.position_ = { 0.0f,0.0f,50.0f };
+
+	SphereCollider* col = new SphereCollider(0.5f);
+	AddCollider(col);
 
 }
 
 void Enemy::Update()
 {
-	transform_.rotate_.y += 1.0f;
-	if (transform_.rotate_.y > 720.0f)
+	//transform_.rotate_.y += 1.0f;
+	/*if (transform_.rotate_.y > 720.0f)
 	{
 		Killme();
-	}
+	}*/
 
 }
 
 void Enemy::Draw()
 {
-
-	Model::SetTransforom(hModel, transform_);
-	Model::Draw(hModel);
+	pFbx->Draw(transform_);
 }
 
 void Enemy::Release()
 {
-	Model::Release();
 }
