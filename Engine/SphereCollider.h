@@ -1,9 +1,9 @@
 #pragma once
 
-class SpehreCollider
+class SphereCollider
 {
 public:
-	SpehreCollider(float radius);
+	SphereCollider(float radius);
 	float GetRadius() { return (radius_); }//ƒCƒ“ƒ‰ƒCƒ“’è‹`
 
 private:

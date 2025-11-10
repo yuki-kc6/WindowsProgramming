@@ -34,13 +34,13 @@ void Player::Initialize()
 void Player::Update()
 {
 	static float x = 0.0;
-	float tx = tan(x) * 3.0f;
+	float tx = sin(x) * 3.0f;
 	x += 0.02f;
 	transform_.position_.x = tx;
 	transform_.rotate_.y += 2.0f;
 	if (transform_.rotate_.y > 720.0f)
 	{
-		Killme();
+		//Killme();
 	}
 }
 

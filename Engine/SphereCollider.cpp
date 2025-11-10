@@ -1,6 +1,6 @@
 #include "SphereCollider.h"
 
-SpehreCollider::SpehreCollider(float radius)
+SphereCollider::SphereCollider(float radius)
 	:radius_(radius)
 {
 

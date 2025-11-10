@@ -7,7 +7,7 @@
 using std::string;
 using std::list;
 
-class SpehreCollider;
+class SphereCollider;
 
 
 class GameObject
@@ -33,7 +33,7 @@ public:
 	GameObject* FindChildObject(const string& name);
 	GameObject* FindObject(const string& name);
 
-	void AddColider(SpehreCollider* pCollider);
+	void AddColider(SphereCollider* pCollider);
 	void Collision(GameObject* pTarget);
 	void RoundRobin(GameObject* pTarget);
 
@@ -52,7 +52,7 @@ protected:
 	Transform		  transform_;
 	GameObject*		  pParent_;
 	string			  objectName_;
-	SpehreCollider*   pCollider_;
+	SphereCollider*   pCollider_;
 private:
 	bool isDead_;
 
