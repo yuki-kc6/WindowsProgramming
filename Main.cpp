@@ -8,13 +8,11 @@
 #include "Engine/Camera.h"
 #include "Engine/Transform.h"
 #include "Engine/Input.h"
-#include"Engine/RootJob.h"
-#include"Engine/Model.h"
+#include "Engine/RootJob.h"
+#include "Engine/Model.h"
 
 
 #pragma comment(lib,"winmm.lib") //timeGetTimeを使うために必要
-
-
 
 
 //頭にHがつくと何らかのハンドル

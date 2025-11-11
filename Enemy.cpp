@@ -16,21 +16,19 @@ Enemy::Initialize()
 {
 	pFbx = new Fbx;
 	pFbx->Load("oden.fbx");
-	transform_.position_ = { 0.0f,0.0f,50.0f };
+	transform_.position_ = { 0.0f,0.0f,30.0f };
 
-	SphereCollider* col = new SphereCollider(0.5f);
+	SphereCollider* col = new SphereCollider(1.0f);
 	AddCollider(col);
 
 }
 
 void Enemy::Update()
 {
-	//transform_.rotate_.y += 1.0f;
-	/*if (transform_.rotate_.y > 720.0f)
-	{
-		Killme();
-	}*/
-
+	static float y = 1.0;
+	float ty = cos(y) * 5.0f;
+	y += 0.02f;
+	transform_.position_.y = ty;
 }
 
 void Enemy::Draw()
@@ -40,4 +38,12 @@ void Enemy::Draw()
 
 void Enemy::Release()
 {
+}
+
+void Enemy::OnCollision(GameObject* pTarget)
+{
+	if (pTarget->GetObjectName() == "Bullet")
+	{
+		Killme();
+	}
 }

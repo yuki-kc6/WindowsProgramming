@@ -22,7 +22,7 @@ void TestModel::Initialize()
 
 void TestModel::Update()
 {
-	transform_.rotate_.y += 1.0f;
+	//transform_.rotate_.y += 1.0f;
 }
 
 void TestModel::Draw()
