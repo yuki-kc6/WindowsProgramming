@@ -4,10 +4,14 @@
 #include "Engine/Input.h"
 #include "ChildOden.h"
 #include "Engine/SphereCollider.h"
+#include "Bullet.h"
+#include "Engine/Camera.h"
+
 
 Player::Player(GameObject* parent)
 	:GameObject(parent,"Player"),pFbx_(nullptr),hModel(-1)
 {
+
 }
 
 Player::~Player()
@@ -33,7 +37,9 @@ void Player::Initialize()
 	pLChildOden_->SetPosition(-2.0f, 1.0f, 0.0f);
 	
 	SphereCollider* col = new SphereCollider(0.5f);
-	AddCollider(col);
+	AddCollider(col); 
+
+	Camera::SetPosition
 }
 
 void Player::Update()
@@ -44,9 +50,21 @@ void Player::Update()
 	//transform_.position_.x = tx;
 	transform_.rotate_.y += 1.0f;
 	
+	if (Input::IsKey(DIK_RIGHT))
+	{
+		transform_.position_.x += 0.5;
+	}
+
+	if (Input::IsKey(DIK_LEFT))
+	{
+		transform_.position_.x -= 0.5;
+	}
+
 	if (Input::IsKey(DIK_SPACE))
 	{
-		transform_.position_.z += 0.2;
+		GameObject* pBullet = Instantiate<Bullet>(GetParent());
+		pBullet->SetPosition(transform_.position_);
+		
 	}
 
 }

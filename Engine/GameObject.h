@@ -25,6 +25,10 @@ public:
 	void UpdateSub();
 	void ReleaseSub();
 
+
+	std::string GetObjectName();
+	GameObject* GetParent();
+
 	void SetPosition(XMFLOAT3 position);
 	void SetPosition(float x, float y, float z);
 	void Killme();

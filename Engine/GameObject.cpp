@@ -72,6 +72,16 @@ void GameObject::ReleaseSub()
 	
 }
 
+std::string GameObject::GetObjectName()
+{
+	return objectName_;
+}
+
+GameObject* GameObject::GetParent()
+{
+	return pParent_;
+}
+
 void GameObject::SetPosition(XMFLOAT3 position)
 {
 	transform_.position_ = position;

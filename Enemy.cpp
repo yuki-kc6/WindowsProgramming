@@ -15,7 +15,7 @@ void
 Enemy::Initialize()
 {
 	pFbx = new Fbx;
-	pFbx->Load("geppei.fbx");
+	pFbx->Load("oden.fbx");
 	transform_.position_ = { 0.0f,0.0f,50.0f };
 
 	SphereCollider* col = new SphereCollider(0.5f);
