@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Bullet.h" />
     <ClInclude Include="ChildOden.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Engine\Camera.h" />
@@ -162,9 +163,10 @@
     <ClInclude Include="Engine\Transform.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="TestModel.h" />
-    <ClInclude Include="TestScene.h" />
+    <ClInclude Include="TitleScene.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="ChildOden.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Engine\Camera.cpp" />
@@ -184,7 +186,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="TestModel.cpp" />
-    <ClCompile Include="TestScene.cpp" />
+    <ClCompile Include="TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsPeog2.rc" />

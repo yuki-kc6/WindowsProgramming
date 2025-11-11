@@ -2,12 +2,12 @@
 #include "Engine/GameObject.h""
 class SceneManager;
 
-class TestScene
+class TitleScene
 	:public GameObject
 {
 public:
-	TestScene(GameObject* parent);
-	~TestScene();
+	TitleScene(GameObject* parent);
+	~TitleScene();
 	void Initialize()override;
 	void Update() override;
 	void Draw()	  override;

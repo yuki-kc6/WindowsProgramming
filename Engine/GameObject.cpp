@@ -79,9 +79,7 @@ void GameObject::SetPosition(XMFLOAT3 position)
 
 void GameObject::SetPosition(float x, float y, float z)
 {
-	transform_.position_.x = x;
-	transform_.position_.y = y;
-	transform_.position_.z = z;
+	SetPosition(XMFLOAT3(x, y, z));
 }
 
 void GameObject::Killme()
@@ -148,9 +146,7 @@ void GameObject::Collision(GameObject* pTarget)
 		         (thisP.z - tgtP.z) * (thisP.z - tgtP.z);
 	//コライダー同士が交差していたら
 	if (dist <= thre) {
-		
-		//処理をする
-		MessageBoxA(0, "ぼん", "Collider", MB_OK);
+		this->OnCollision(pTarget);
 	}
 	
 }
@@ -161,7 +157,7 @@ void GameObject::RoundRobin(GameObject* pTarget)
 	if (pCollider_ == nullptr)
 		return;
 	//自分とターゲット自体のコライダーが当たり判定
-	if(pTarget->pCollider_!=nullptr)
+	if(pTarget->pCollider_ != nullptr && pTarget->pCollider_ != pCollider_)
 	Collision(pTarget);
 	//再帰的な奴で、ターゲットの子オブジェクトに当たり判定していく
 	for (auto itr : pTarget->childList_)

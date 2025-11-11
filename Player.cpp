@@ -20,11 +20,12 @@ void Player::Initialize()
 	////pFBX_がnullptrじゃなかったら。
 	////のチェック入れた方がいい
 	//pFbx_->Load("oden.fbx");
+
 	hModel = Model::Load("oden.fbx");
 	assert(hModel >= 0);	
-	transform_.scale_.x = 0.7f;
-	transform_.scale_.y = 0.7f;
-	transform_.scale_.z = 0.7f;
+	//transform_.scale_.x = 0.7f;
+	//transform_.scale_.y = 0.7f;
+	//transform_.scale_.z = 0.7f;
 	//子オブジェクトにChildOdenを追加
 	pRChildOden_ = (ChildOden*)Instantiate<ChildOden>(this);
 	pLChildOden_ = (ChildOden*)Instantiate<ChildOden>(this);
@@ -62,11 +63,16 @@ void Player::Draw()
 
 void Player::Release()
 {
-	Model::Release();
+	//Model::Release();
 	/*if (pFbx_)
 	{
 		pFbx_->Release();
 		delete pFbx_;
 		pFbx_ = nullptr;
 	}*/
+}
+
+void Player::OnCollision(GameObject* pTarget)
+{
+
 }

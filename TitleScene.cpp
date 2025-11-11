@@ -1,22 +1,22 @@
-#include "TestScene.h"
+#include "TitleScene.h"
 #include "Engine/Input.h"
 #include "Engine/SceneManager.h"
 #include "TestModel.h"
-TestScene::TestScene(GameObject* parent)
-	:GameObject(parent,"TestScene")
+TitleScene::TitleScene(GameObject* parent)
+	:GameObject(parent,"TitleScene")
 {
 }
 
-TestScene::~TestScene()
+TitleScene::~TitleScene()
 {
 }
 
-void TestScene::Initialize()
+void TitleScene::Initialize()
 {
 	Instantiate<TestModel>(this);
 }
 
-void TestScene::Update()  
+void TitleScene::Update()  
 {  
    if (Input::IsKeyDown(DIK_SPACE))  
    {  
@@ -26,10 +26,10 @@ void TestScene::Update()
    }
 }
 
-void TestScene::Draw()
+void TitleScene::Draw()
 {
 }
 
-void TestScene::Release()
+void TitleScene::Release()
 {
 }
