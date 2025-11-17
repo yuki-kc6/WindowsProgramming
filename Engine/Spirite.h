@@ -22,12 +22,12 @@ struct VERTEX
 
 class Texture;//‘O•ûéŒ¾
 
-class Spirete
+class Spirite
 {
 public:
-	Spirete();
-	virtual ~Spirete();
-	virtual HRESULT Initialize();
+	Spirite();
+	virtual ~Spirite();
+	virtual HRESULT Initialize(const std::string fileName);
 	virtual void Draw(XMMATRIX& worldMatrix);
 	void Release();
 protected:

@@ -1,4 +1,4 @@
-#include "Spirete.h"
+#include "Spirite.h"
 
 
 #include "Camera.h"
@@ -6,7 +6,7 @@
 
 
 
-Spirete::Spirete() 
+Spirite::Spirite() 
 	:pVertexBuffer_(nullptr), 
 	pIndexBuffer_(nullptr), 
 	pConstantBuffer_(nullptr), 
@@ -15,11 +15,11 @@ Spirete::Spirete()
 
 }
 
-Spirete::~Spirete()
+Spirite::~Spirite()
 {
 }
 
-HRESULT Spirete::Initialize()
+HRESULT Spirite::Initialize(std::string fileName)
 {
 	HRESULT hr;
 	//縦横２の乗数
@@ -88,12 +88,12 @@ HRESULT Spirete::Initialize()
 	}
 
 	pTexture_ = new Texture;
-	pTexture_->Load("dice.png");
+	pTexture_->Load(fileName);
 
 	return S_OK;
 }
 
-void Spirete::Draw(XMMATRIX& worldMatrix)
+void Spirite::Draw(XMMATRIX& worldMatrix)
 {
 	//コンスタントバッファに渡す情報
 	Direct3D::SetShader(SHADER_TYPE::SHADER_2D);
@@ -132,7 +132,7 @@ void Spirete::Draw(XMMATRIX& worldMatrix)
 
 }
 
-void Spirete::Release()
+void Spirite::Release()
 {
 	SAFE_RELEASE(pConstantBuffer_);
 	SAFE_RELEASE(pIndexBuffer_);

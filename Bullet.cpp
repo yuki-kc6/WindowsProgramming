@@ -15,7 +15,7 @@ void Bullet::Initialize()
 {
 	hModel = Model::Load("geppei.fbx");
 	assert(hModel >= 0);
-	SphereCollider* col = new SphereCollider(0.5f);
+	SphereCollider* col = new SphereCollider(1.0f);
 	AddCollider(col);
 	transform_.rotate_.y -= 70.0f;
 }

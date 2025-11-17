@@ -3,7 +3,7 @@
 
 
 Enemy::Enemy(GameObject* parent)
-	:GameObject(parent, "Enemy"), pFbx(nullptr)
+	:GameObject(parent, "Enemy"), pFbx(nullptr),hModel(0)
 {
 }
 
@@ -42,8 +42,5 @@ void Enemy::Release()
 
 void Enemy::OnCollision(GameObject* pTarget)
 {
-	if (pTarget->GetObjectName() == "Bullet")
-	{
-		Killme();
-	}
+	Killme();
 }

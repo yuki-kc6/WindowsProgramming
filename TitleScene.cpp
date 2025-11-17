@@ -2,6 +2,8 @@
 #include "Engine/Input.h"
 #include "Engine/SceneManager.h"
 #include "TestModel.h"
+#include "Title.h"
+#include "Engine/Spirite.h"
 TitleScene::TitleScene(GameObject* parent)
 	:GameObject(parent,"TitleScene")
 {
@@ -14,6 +16,8 @@ TitleScene::~TitleScene()
 void TitleScene::Initialize()
 {
 	Instantiate<TestModel>(this);
+	sp = new Spirite;
+	sp->Initialize();
 }
 
 void TitleScene::Update()  
