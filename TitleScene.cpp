@@ -1,11 +1,12 @@
 #include "TitleScene.h"
 #include "Engine/Input.h"
 #include "Engine/SceneManager.h"
+#include "Engine/Sprite.h"
 #include "TestModel.h"
 #include "Title.h"
-#include "Engine/Spirite.h"
+
 TitleScene::TitleScene(GameObject* parent)
-	:GameObject(parent,"TitleScene")
+	:GameObject(parent,"TitleScene"),pSprite(nullptr)
 {
 }
 
@@ -15,9 +16,9 @@ TitleScene::~TitleScene()
 
 void TitleScene::Initialize()
 {
+	pSprite = new Sprite;
+	pSprite->Load("Assets/title.png");
 	Instantiate<TestModel>(this);
-	sp = new Spirite;
-	sp->Initialize();
 }
 
 void TitleScene::Update()  
@@ -32,6 +33,9 @@ void TitleScene::Update()
 
 void TitleScene::Draw()
 {
+	XMMATRIX mat = XMMatrixRotationY(XMConvertToRadians(0));
+
+	pSprite->Draw(mat);
 }
 
 void TitleScene::Release()

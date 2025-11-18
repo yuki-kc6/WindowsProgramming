@@ -1,7 +1,7 @@
 #pragma once
 #include<string>
 #include <vector>
-#include "Spirite.h"
+#include "Sprite.h"
 
 
 
@@ -10,11 +10,12 @@ namespace Image
 {
 	struct ImageData
 	{
-		Spirite* pSpirite_;
+		Sprite* pSpirite_;
 		std::string filename_;
 	};
 	int Load(std::string fileName);
 	void Draw(int hModel);
 	void Release();
-
 };
+
+

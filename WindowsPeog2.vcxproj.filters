@@ -48,7 +48,7 @@
     <ClInclude Include="Engine\Quad.h">
       <Filter>ヘッダー ファイル\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Spirite.h">
+    <ClInclude Include="Engine\Sprite.h">
       <Filter>ヘッダー ファイル\Engine</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Texture.h">
@@ -116,7 +116,7 @@
     <ClCompile Include="Engine\Texture.cpp">
       <Filter>ソース ファイル\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Spirite.cpp">
+    <ClCompile Include="Engine\Sprite.cpp">
       <Filter>ソース ファイル\Engine</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Quad.cpp">

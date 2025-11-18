@@ -2,7 +2,7 @@
 #include "Engine/GameObject.h""
 class SceneManager;
 
-class Spirite;
+class Sprite;
 
 class TitleScene
 	:public GameObject
@@ -15,6 +15,6 @@ public:
 	void Draw()	  override;
 	void Release()	 override;
 private:
-	Spirite* sp;
+	Sprite* pSprite;
 
 };
