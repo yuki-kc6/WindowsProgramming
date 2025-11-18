@@ -5,7 +5,6 @@
 #include "ChildOden.h"
 #include "Engine/SphereCollider.h"
 #include "Bullet.h"
-#include "Engine/Camera.h"
 
 Player::Player(GameObject* parent)
 	:GameObject(parent,"Player"),pFbx_(nullptr),hModel(-1)
@@ -38,16 +37,11 @@ void Player::Initialize()
 	SphereCollider* col = new SphereCollider(0.5f);
 	AddCollider(col); 
 
-	camPos={ 40, 10, 10, 0 };
-
-	camTar={ 0,0,10,0 };
 }
 
 void Player::Update()
 {
-	Camera::SetPosition(camPos);
-	Camera::SetTarget(camTar);
-
+	
 
 	static float x = 0.0;
 	float tx = sin(x) * 3.0f;
@@ -71,10 +65,10 @@ void Player::Update()
 		pBullet->SetPosition(transform_.position_);
 		
 	}
-	if (transform_.rotate_.y > 720.0f)
+	/*if (transform_.rotate_.y > 720.0f)
 	{
 		Killme();
-	}
+	}*/
 
 }
 

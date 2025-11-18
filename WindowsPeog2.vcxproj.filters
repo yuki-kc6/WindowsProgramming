@@ -81,9 +81,6 @@
     <ClInclude Include="Engine\Model.h">
       <Filter>ヘッダー ファイル\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="TestModel.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\SphereCollider.h">
       <Filter>ヘッダー ファイル\Engine</Filter>
     </ClInclude>
@@ -154,9 +151,6 @@
     </ClCompile>
     <ClCompile Include="Engine\SceneManager.cpp">
       <Filter>ソース ファイル\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="TestModel.cpp">
-      <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Engine\SphereCollider.cpp">
       <Filter>ソース ファイル\Engine</Filter>

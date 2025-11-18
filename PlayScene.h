@@ -12,5 +12,8 @@ public:
 	void Update() override;
 	void Draw() override;
 	void Release() override;
+private:
+	XMVECTOR camPos;
+	XMVECTOR camTar;
 };
 

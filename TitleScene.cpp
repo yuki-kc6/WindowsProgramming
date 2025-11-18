@@ -2,7 +2,6 @@
 #include "Engine/Input.h"
 #include "Engine/SceneManager.h"
 #include "Engine/Sprite.h"
-#include "TestModel.h"
 #include "Title.h"
 
 TitleScene::TitleScene(GameObject* parent)
@@ -18,7 +17,6 @@ void TitleScene::Initialize()
 {
 	pSprite = new Sprite;
 	pSprite->Load("Assets/title.png");
-	Instantiate<TestModel>(this);
 }
 
 void TitleScene::Update()  

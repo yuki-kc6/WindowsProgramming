@@ -1,6 +1,6 @@
 #include "Enemy.h"
 #include "Engine/SphereCollider.h"
-
+#include "Engine/SceneManager.h"
 
 Enemy::Enemy(GameObject* parent)
 	:GameObject(parent, "Enemy"), pFbx(nullptr),hModel(0)
@@ -15,7 +15,7 @@ void
 Enemy::Initialize()
 {
 	pFbx = new Fbx;
-	pFbx->Load("oden.fbx");
+	pFbx->Load("mikan.fbx");
 	transform_.position_ = { 0.0f,0.0f,30.0f };
 
 	SphereCollider* col = new SphereCollider(1.0f);
@@ -29,6 +29,9 @@ void Enemy::Update()
 	float ty = cos(y) * 5.0f;
 	y += 0.02f;
 	transform_.position_.y = ty;
+
+	transform_.rotate_.y += 1.0f;
+
 }
 
 void Enemy::Draw()
@@ -43,4 +46,8 @@ void Enemy::Release()
 void Enemy::OnCollision(GameObject* pTarget)
 {
 	Killme();
+
+	SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
+	if (pSceneManager != nullptr)
+	pSceneManager->ChangeScene(SCENE_ID_CLEAR);
 }

@@ -24,8 +24,7 @@ private:
 	ChildOden* pRChildOden_;
 	ChildOden* pLChildOden_;
 	int hModel;	
-	XMVECTOR camPos;
-	XMVECTOR camTar;
+	
 
 };
 
