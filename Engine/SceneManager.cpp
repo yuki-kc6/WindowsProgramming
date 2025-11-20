@@ -40,6 +40,8 @@ void SceneManager::Update()
 		case SCENE_ID_PLAY:
 			Instantiate<PlayScene>(this);
 			break;
+		case SCENE_ID_CLEAR:
+			Instantiate<ClearScene>(this);
 		}
 		currentSceneID_ = nextSceneID_;
 	}

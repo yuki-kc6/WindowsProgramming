@@ -1,6 +1,5 @@
 #pragma once
 #include "Engine/GameObject.h""
-class SceneManager;
 
 class Sprite;
 

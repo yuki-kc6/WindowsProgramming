@@ -43,6 +43,6 @@ void Bullet::OnCollision(GameObject* pTarget)
 {
 	if (pTarget->GetObjectName() == "Enemy")
 	{
-		Killme();
+		//Killme();
 	}
 }

@@ -1,5 +1,8 @@
 #pragma once
 #include "Engine/GameObject.h"
+
+class Sprite;
+
 class ClearScene :
     public GameObject
 {
@@ -10,6 +13,7 @@ public:
 	void Update() override;
 	void Draw()	  override;
 	void Release()	 override;
-
+private:
+	Sprite* pSprite;
 };
 
