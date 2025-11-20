@@ -41,35 +41,33 @@ void Player::Initialize()
 
 void Player::Update()
 {
-	
-
-	static float x = 0.0;
-	float tx = sin(x) * 3.0f;
-	x += 0.02f;
-	//transform_.position_.x = tx;
 	transform_.rotate_.y += 1.0f;
 	
-	if (Input::IsKey(DIK_UP))
+
+
+
+
+	if (Input::IsKey(DIK_UP)&&transform_.position_.y<15)
 	{
 		transform_.position_.y += 0.5;
 	}
 
-	if (Input::IsKey(DIK_DOWN))
+	if (Input::IsKey(DIK_DOWN)&&transform_.position_.y>-20)
 	{
 		transform_.position_.y -= 0.5;
 	}
 
-	if (Input::IsKey(DIK_SPACE))
+	if (Input::IsKeyDown(DIK_SPACE))
 	{
 		GameObject* pBullet = Instantiate<Bullet>(GetParent());
 		pBullet->SetPosition(transform_.position_);
 		
 	}
-	/*if (transform_.rotate_.y > 720.0f)
+
+	if (transform_.rotate_.y > 720)
 	{
 		Killme();
-	}*/
-
+	}
 }
 
 void Player::Draw()
@@ -95,5 +93,5 @@ void Player::Release()
 
 void Player::OnCollision(GameObject* pTarget)
 {
-
+	
 }

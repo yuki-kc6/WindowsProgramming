@@ -1,6 +1,7 @@
 #include "Bullet.h"
 #include "Engine/Model.h"
 #include "Engine/SphereCollider.h"
+#include "Engine/SceneManager.h"
 
 Bullet::Bullet(GameObject* parent)
 	:GameObject(parent, "Bullet"), hModel(-1)
@@ -18,12 +19,14 @@ void Bullet::Initialize()
 	SphereCollider* col = new SphereCollider(1.0f);
 	AddCollider(col);
 	transform_.rotate_.y -= 70.0f;
+	move = 0.3;
 }
 
 void Bullet::Update()
 {
-	transform_.position_.z += 0.3;
-	if (transform_.position_.z == 60)
+	transform_.position_.z +=move;
+
+	if (transform_.position_.z > 40)
 	{
 		Killme();
 	}
@@ -41,8 +44,4 @@ void Bullet::Release()
 
 void Bullet::OnCollision(GameObject* pTarget)
 {
-	if (pTarget->GetObjectName() == "Enemy")
-	{
-		//Killme();
-	}
 }

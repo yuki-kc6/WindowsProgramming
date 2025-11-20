@@ -1,25 +1,25 @@
-#include "ClearScene.h"
+#include "GameOverScene.h"
 #include "Engine/SceneManager.h"
 #include "Engine/Input.h"
 #include "Engine/Sprite.h"
 
-ClearScene::ClearScene(GameObject* parent)
-	:GameObject(parent, "ClearScene"),pSprite(nullptr)
+GameOverScene::GameOverScene(GameObject* parent)
+	:GameObject(parent, "GameOverScene"), pSprite(nullptr)
 {
 
 }
 
-ClearScene::~ClearScene()
+GameOverScene::~GameOverScene()
 {
 }
 
-void ClearScene::Initialize()
+void GameOverScene::Initialize()
 {
 	pSprite = new Sprite;
-	pSprite->Load("Assets/clear.png");
+	pSprite->Load("Assets/gameover.png");
 }
 
-void ClearScene::Update()
+void GameOverScene::Update()
 {
 	if (Input::IsKeyDown(DIK_SPACE))
 	{
@@ -29,13 +29,13 @@ void ClearScene::Update()
 	}
 }
 
-void ClearScene::Draw()
+void GameOverScene::Draw()
 {
 	XMMATRIX mat = XMMatrixRotationY(XMConvertToRadians(0));
 
 	pSprite->Draw(mat);
 }
 
-void ClearScene::Release()
+void GameOverScene::Release()
 {
 }

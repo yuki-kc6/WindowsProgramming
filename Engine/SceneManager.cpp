@@ -3,6 +3,7 @@
 #include "..\\TitleScene.h"
 #include "..\\PlayScene.h"
 #include "..\\ClearScene.h"
+#include "..\\GameOverScene.h"
 #include "Model.h"
 
 SceneManager::SceneManager(GameObject* parent)
@@ -42,6 +43,8 @@ void SceneManager::Update()
 			break;
 		case SCENE_ID_CLEAR:
 			Instantiate<ClearScene>(this);
+		case SCENE_ID_OVER:
+			Instantiate<GameOverScene>(this);
 		}
 		currentSceneID_ = nextSceneID_;
 	}

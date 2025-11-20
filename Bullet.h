@@ -14,7 +14,7 @@ public:
 	void OnCollision(GameObject* pTarget) override;
 private:
 	int hModel;
-
+	float move;
 
 };
 

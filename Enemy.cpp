@@ -45,9 +45,7 @@ void Enemy::Release()
 
 void Enemy::OnCollision(GameObject* pTarget)
 {
-	Killme();
-
-	SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
-	if (pSceneManager != nullptr)
-	pSceneManager->ChangeScene(SCENE_ID_CLEAR);
+	if (pTarget->GetObjectName() == "Bullet") {
+		Killme();
+	}
 }
